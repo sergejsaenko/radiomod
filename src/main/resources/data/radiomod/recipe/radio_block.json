@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "pattern": [
     "I  ",
     "III",
@@ -11,7 +12,7 @@
     }
   },
   "result": {
-    "item": "radiomod:radio_block",
+    "id": "radiomod:radio_block",
     "count": 1
   }
 }
