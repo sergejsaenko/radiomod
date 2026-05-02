@@ -20,8 +20,6 @@ hs_err_pid*
 **/build/
 gradle-app.setting
 .gradletasknamecache
-
-# Keep the Gradle wrapper jar (not auto-generated)
 !gradle-wrapper.jar
 
 # ==================== IntelliJ IDEA ====================
