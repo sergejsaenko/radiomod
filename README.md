@@ -29,9 +29,6 @@
         <p>
             The Radio Mod fully supports <strong>physics-based moving structures</strong>. When placed on a moving vehicle (e.g. an airship built with <a href="https://github.com/Create-Aeronautics">Create Aeronautics</a>), the radio block moves along with it. The audio position is continuously updated to follow the block's world position, so the sound stays anchored to the radio wherever it travels.
         </p>
-        <p>
-            Placement direction is also corrected automatically — when you place the radio on a rotated SubLevel structure, the mod reads the vehicle's current yaw and adjusts the block's facing accordingly, so it always faces you as expected.
-        </p>
         <h1></h1>
     </div>
     <div align="center">
