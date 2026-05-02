@@ -150,7 +150,7 @@ public class RadioPlayer {
     private final String currentStationId;
     private final String radioKey;
     private volatile Vec3 blockPos;
-    private volatile boolean posTrackingLogged = false;
+
     private volatile boolean running = false;
     private volatile SourceDataLine line;
     private Future<?> future;
@@ -164,17 +164,75 @@ public class RadioPlayer {
     /**
      * Updates the audio source position. For SubLevel blocks, uses Sable reflection
      * to resolve the real world position so audio follows the physics object.
+     * Detects when the client-side Sable pose freezes (player far from SubLevel)
+     * and falls back to server-side resolution in singleplayer.
      */
+    private Vec3 lastSablePos = null;
+    private int staleTicks = 0;
+    private static final int STALE_THRESHOLD = 20; // ~5 seconds at 5-tick interval
+
     private void updateBlockPos() {
         RadioBlockEntity be = RadioBlockEntity.findByKey(radioKey);
         if (be == null) return;
 
         BlockPos bp = be.getBlockPos();
-        if (Math.abs(bp.getX()) > 1_000_000 || Math.abs(bp.getZ()) > 1_000_000) {
+        boolean isSubLevel = Math.abs(bp.getX()) > 1_000_000 || Math.abs(bp.getZ()) > 1_000_000;
+
+        if (isSubLevel) {
+            // Try client-side Sable first (always accurate when nearby)
             Vec3 worldPos = tryGetClientSableWorldPos(be);
-            if (worldPos != null) blockPos = worldPos;
+            if (worldPos != null) {
+                // Detect staleness: if position hasn't changed, increment counter
+                if (lastSablePos != null && worldPos.distanceToSqr(lastSablePos) < 0.0001) {
+                    staleTicks++;
+                } else {
+                    staleTicks = 0;
+                }
+                lastSablePos = worldPos;
+
+                // If position is stale (frozen by Sable at distance), try server resolution
+                if (staleTicks >= STALE_THRESHOLD) {
+                    Minecraft mc = Minecraft.getInstance();
+                    if (mc.getSingleplayerServer() != null) {
+                        Vec3 serverResolved = tryResolveViaIntegratedServer(be);
+                        if (serverResolved != null) {
+                            blockPos = serverResolved;
+                            return;
+                        }
+                    }
+                }
+                // Use client Sable result (either fresh, or best we have)
+                blockPos = worldPos;
+            } else {
+                // Client Sable failed entirely — try server fallback
+                Minecraft mc = Minecraft.getInstance();
+                if (mc.getSingleplayerServer() != null) {
+                    Vec3 serverResolved = tryResolveViaIntegratedServer(be);
+                    if (serverResolved != null) {
+                        blockPos = serverResolved;
+                    }
+                }
+            }
         } else {
             blockPos = Vec3.atCenterOf(bp);
+        }
+    }
+
+    /**
+     * In singleplayer (integrated server), resolves the world position using
+     * the Sable server-side HELPER singleton (which lives in the same JVM).
+     * Only calls the HELPER directly — does NOT access server level/chunk data
+     * from the render thread (which could cause threading issues).
+     */
+    private static Vec3 tryResolveViaIntegratedServer(RadioBlockEntity clientBe) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.getSingleplayerServer() == null) return null;
+
+        try {
+            // Use the server-side Sable resolution (HELPER is a thread-safe singleton)
+            return com.radiomod.network.ModPayloads.resolveWorldPosition(clientBe);
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -230,7 +288,7 @@ public class RadioPlayer {
         try {
             Object level = be.getLevel();
             if (level == null) return null;
-            java.lang.reflect.Method logicalPoseMethod = null;
+            java.lang.reflect.Method logicalPoseMethod;
             try {
                 logicalPoseMethod = level.getClass().getMethod("logicalPose");
             } catch (NoSuchMethodException ignored) {

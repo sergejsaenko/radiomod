@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -31,6 +32,15 @@ public class WorldEventHandler {
     public static class ClientEvents {
         @SubscribeEvent
         public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+            RadioPlayer.stopAll();
+        }
+
+        /**
+         * Fires on the client when disconnecting from a server or leaving a singleplayer world.
+         * Guarantees all active radio streams are closed immediately.
+         */
+        @SubscribeEvent
+        public static void onClientDisconnect(ClientPlayerNetworkEvent.LoggingOut event) {
             RadioPlayer.stopAll();
         }
     }
