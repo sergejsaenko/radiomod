@@ -35,7 +35,6 @@
         <h1></h1>
     </div>
     <div align="center">
-        <p>This mod is part of the <strong>Sable</strong> modpack.</p>
         <a href="https://github.com/ryanhcode/sable">
             <img alt="powered by sable" src="./images/sable_512h.png" width="250">
         </a>
