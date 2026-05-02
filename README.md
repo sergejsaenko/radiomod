@@ -27,7 +27,7 @@
         <h1></h1>
         <h2>Create Aeronautics / Sable Integration</h2>
         <p>
-            The Radio Mod fully supports <strong>physics-based moving structures</strong>. When placed on a moving vehicle (e.g. an airship built with <a href="https://github.com/Create-Aeronautics">Create Aeronautics</a>), the radio block moves along with it. The audio position is continuously updated to follow the block's world position, so the sound stays anchored to the radio wherever it travels.
+            The Radio Mod fully supports <strong>physics-based moving structures</strong>. When placed on a moving vehicle (e.g. an airship built with <a href="[https://github.com/Create-Aeronautics](https://github.com/Creators-of-Aeronautics/Simulated-Project)">Create Aeronautics</a>), the radio block moves along with it. The audio position is continuously updated to follow the block's world position, so the sound stays anchored to the radio wherever it travels.
         </p>
         <h1></h1>
     </div>
