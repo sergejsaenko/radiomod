@@ -11,8 +11,6 @@
             <li><strong>Live Internet Radio</strong> — streams real radio stations over the internet with positional 3D audio. The closer you are to the block, the louder it plays.</li>
             <li><strong>Country / Region Selection</strong> — choose from a wide range of countries (Germany, USA, UK, France, Japan, South Korea, Austria, Brazil, Russia, Jamaica, Egypt, and more) and pick a station from each region.</li>
             <li><strong>Dynamic Station Fetching</strong> — on the client, stations are fetched live from a radio browser API. Fallback station lists are provided for offline use.</li>
-            <li><strong>8-Direction Facing</strong> — the block can be placed facing any of 8 directions (45° increments) for precise aesthetic placement.</li>
-            <li><strong>JEI Integration</strong> — optional Just Enough Items support for in-game recipe lookup.</li>
         </ul>
         <h1></h1>
         <h2>Requirements</h2>
