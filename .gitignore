@@ -1,0 +1,86 @@
+﻿# ==================== Java ====================
+*.class
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+
+# Log files
+*.log
+
+# BlueJ
+*.ctxt
+
+# ==================== Gradle ====================
+.gradle/
+**/build/
+gradle-app.setting
+.gradletasknamecache
+
+# Keep the Gradle wrapper jar (not auto-generated)
+!gradle-wrapper.jar
+
+# ==================== IntelliJ IDEA ====================
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+out/
+
+# ==================== Minecraft / NeoForge ====================
+# Generated run directories
+run/
+runs/
+
+# ==================== Node ====================
+node_modules/
+
+# ==================== macOS ====================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ==================== Windows ====================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# ==================== Linux ====================
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ==================== Atlassian ====================
+atlassian-ide-plugin.xml
+

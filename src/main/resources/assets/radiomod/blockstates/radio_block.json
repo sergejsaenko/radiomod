@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=0": {
+      "model": "radiomod:block/radio_block",
+      "y": 0
+    },
+    "facing=1": {
+      "model": "radiomod:block/radio_block_diagonal",
+      "y": 0
+    },
+    "facing=2": {
+      "model": "radiomod:block/radio_block",
+      "y": 90
+    },
+    "facing=3": {
+      "model": "radiomod:block/radio_block_diagonal",
+      "y": 90
+    },
+    "facing=4": {
+      "model": "radiomod:block/radio_block",
+      "y": 180
+    },
+    "facing=5": {
+      "model": "radiomod:block/radio_block_diagonal",
+      "y": 180
+    },
+    "facing=6": {
+      "model": "radiomod:block/radio_block",
+      "y": 270
+    },
+    "facing=7": {
+      "model": "radiomod:block/radio_block_diagonal",
+      "y": 270
+    }
+  }
+}
